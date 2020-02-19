@@ -27,6 +27,27 @@ const setMovieData = (movieIndex, moviePrice) => {
   localStorage.setItem('selectedMoviePrice', moviePrice);
 };
 
+// Get data from Local Storage and populate UI
+const populateUI = () => {
+  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+  if (selectedMovieIndex !== null) {
+    movieSelect.selectedIndex = selectedMovieIndex;
+  }
+
+  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) {
+        seat.classList.add('selected');
+      }
+    });
+  }
+};
+
+populateUI();
+// Initial count and total set
+updateSelectedCount();
+
 /************** EVENT LISTENERS **************/
 
 // Movie select event
